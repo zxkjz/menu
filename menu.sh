@@ -5,9 +5,7 @@ show_menu() {
     echo "===== 脚本菜单 ====="
     echo "1. 下载pm2"
     echo "2. 续期脚本下载"
-    echo "3. 断开ssh"
-    echo "4. 启动脚本"
-    echo "5. 退出"
+    echo "3. 退出"
     echo "===================="
 }
 
@@ -50,26 +48,12 @@ EOF
     echo "auto-renew.sh脚本创建成功！"
 }
 
-# 断开ssh连接
-disconnect_ssh() {
-    echo "断开ssh连接..."
-    exit
-}
-
-# 启动脚本
-start_script() {
-    echo "执行auto-renew.sh脚本..."
-    pm2 start ./auto-renew.sh
-    pm2 save
-    echo "auto-renew.sh脚本执行完成！"
-}
-
 # 主循环
 while true; do
     show_menu
 
     # 提示用户选择
-    read -p "请选择操作（输入1-5）: " choice
+    read -p "请选择操作（输入1-3）: " choice
     echo
 
     case $choice in
@@ -80,14 +64,8 @@ while true; do
             create_auto_renew_script
             ;;
         3)
-            disconnect_ssh
-            ;;
-        4)
-            start_script
-            ;;
-        5)
-            echo "退出脚本"
-            break
+            echo "退出终端连接"
+            exit
             ;;
         *)
             echo "无效的选项，请重新输入！"
